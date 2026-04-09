@@ -1,0 +1,26 @@
+services:
+  db:
+    image: postgres:16
+    container_name: shipinvoice_db
+    environment:
+      POSTGRES_USER: shipinvoice
+      POSTGRES_PASSWORD: shipinvoice
+      POSTGRES_DB: shipinvoice
+    ports:
+      - "5433:5432"
+    volumes:
+      - shipinvoice_pg:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4:8
+    container_name: shipinvoice_pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@shipinvoice.local
+      PGADMIN_DEFAULT_PASSWORD: admin123
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+
+volumes:
+  shipinvoice_pg:
