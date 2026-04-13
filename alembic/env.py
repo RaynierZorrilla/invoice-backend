@@ -22,14 +22,9 @@ config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-# --- Import Base ---
-from db.base import Base  # keep this since your Base is in db/base.py
-
-# ✅ IMPORTANT: when you create models, import them here so autogenerate sees them
-# Example (later):
-# from database.models.client import Client
-# or:
-# from database.models import *   (if you expose them in __init__.py)
+# --- Import Base and models (models must load so metadata is populated) ---
+from db.base import Base
+import db.models  # noqa: F401
 
 target_metadata = Base.metadata
 
