@@ -11,3 +11,13 @@ class InvalidStatusTransitionError(Exception):
         super().__init__(
             f"Invalid status transition: {from_status!r} -> {to_status!r}"
         )
+
+
+class DuplicateInvoiceNumberError(Exception):
+    def __init__(self, invoice_number: str):
+        self.invoice_number = invoice_number
+        super().__init__(f"Duplicate invoice number: {invoice_number}")
+
+
+class InvoiceNotFoundError(Exception):
+    pass
