@@ -4,6 +4,14 @@ from uuid import UUID
 
 from pydantic import BaseModel, Field, field_validator
 
+ShipmentStatus = Literal[
+    "Received",
+    "In Transit",
+    "Arrived RD",
+    "Customs",
+    "Delivered",
+]
+
 
 class ShipmentCreate(BaseModel):
     tracking_number: str = Field(..., min_length=1, max_length=50)
@@ -32,9 +40,13 @@ class ShipmentOut(BaseModel):
     shipment_type: str
     weight: float
     weight_unit: str
-    status: str
+    status: ShipmentStatus
     estimated_delivery: datetime | None
     created_at: datetime
     updated_at: datetime
 
     model_config = {"from_attributes": True}
+
+
+class ShipmentStatusUpdate(BaseModel):
+    status: ShipmentStatus
